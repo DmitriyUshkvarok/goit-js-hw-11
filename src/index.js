@@ -11,7 +11,7 @@ const refs = {
   gallery: document.querySelector('.gallery'),
   loadMoreBtn: document.querySelector('.load-more'),
 };
-
+let page = '';
 refs.searchForm.addEventListener('submit', onSearchSubmit);
 
 function onSearchSubmit(e) {
@@ -28,7 +28,9 @@ function onSearchSubmit(e) {
 }
 
 function showGallery(dataOwner) {
-  refs.gallery.innerHTML = galleryRender(dataOwner.hits);
+  // refs.gallery.innerHTML = galleryRender(dataOwner.hits);
+  const markup = dataOwner.map(item => galleryRender(item));
+  gallery.insertAdjacentHTML('beforeend', markup);
   // refs.gallery.innerHTML = dataOwner.hits
   //   .map(
   //     ({
