@@ -12,7 +12,9 @@ const refs = {
   loadMoreBtn: document.querySelector('.load-more'),
 };
 let page = '';
+let currentHits = 0;
 refs.searchForm.addEventListener('submit', onSearchSubmit);
+refs.loadMoreBtn.addEventListener('click', onLoadFunction);
 
 function onSearchSubmit(e) {
   e.preventDefault();
@@ -24,46 +26,13 @@ function onSearchSubmit(e) {
     );
     return;
   }
+
   fetchContent(inputSearch).then(showGallery).catch(onError);
 }
 
 function showGallery(dataOwner) {
-  // refs.gallery.innerHTML = galleryRender(dataOwner.hits);
-  const markup = dataOwner.map(item => galleryRender(item));
-  gallery.insertAdjacentHTML('beforeend', markup);
-  // refs.gallery.innerHTML = dataOwner.hits
-  //   .map(
-  //     ({
-  //       webformatURL,
-  //       largeImageURL,
-  //       tags,
-  //       likes,
-  //       views,
-  //       comments,
-  //       downloads,
-  //     }) => {
-  //       return `<div class="photo-card">
-  //         <div class="owerlay">
-  //       <a data-fancybox='gallery' href="${largeImageURL}"><img class="gallery-img" width=250 height="100" src="${webformatURL}" alt="${tags}" loading="lazy" /></a>
-  //   </div>
-  //   <div class="info">
-  //     <p class="info-item">
-  //       <b>Likes ${likes}</b>
-  //     </p>
-  //     <p class="info-item">
-  //       <b>Views ${views}</b>
-  //     </p>
-  //     <p class="info-item">
-  //       <b>Comments ${comments}</b>
-  //     </p>
-  //     <p class="info-item">
-  //       <b>Downloads ${downloads}</b>
-  //     </p>
-  //   </div>
-  // </div>`;
-  //     }
-  //   )
-  //   .join('');
+  const markup = galleryRender(dataOwner);
+  refs.gallery.insertAdjacentHTML('beforeend', markup);
 }
 
 function onError(error) {
@@ -71,8 +40,15 @@ function onError(error) {
   return;
 }
 
-refs.loadMoreBtn.addEventListener('click', onLoadFunction);
-function onLoadFunction() {}
+// function onResetSearch() {
+//   refs.gallery.innerHTML = '';
+//   page = 1;
+// }
+
+function onLoadFunction(inputSearch) {
+  page += 1;
+  fetchContent(inputSearch).then(showGallery).catch(onError);
+}
 
 Fancybox.bind('[data-fancybox="gallery"]', {
   Thumbs: true,

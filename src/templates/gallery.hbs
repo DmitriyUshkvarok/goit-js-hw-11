@@ -1,11 +1,11 @@
-{{#each}}
+{{#each hits}}
   <div class='photo-card'>
     <div class='owerlay'>
-      <a data-fancybox='gallery' href='{{largeImageURL}}'>
+      <a data-fancybox='gallery' href='{{this.largeImageURL}}'>
         <img
           class='gallery-img'
-          src='{{webformatURL}}'
-          alt='{{tags}}'
+          src='{{this.webformatURL}}'
+          alt='{{this.tags}}'
           loading='lazy'
           width='250'
         />
@@ -14,19 +14,19 @@
     <div class='info'>
       <p class='info-item'>
         <b>Likes</b>
-        {{likes}}
+        {{this.likes}}
       </p>
       <p class='info-item'>
         <b>Views</b>
-        {{views}}
+        {{this.views}}
       </p>
       <p class='info-item'>
         <b>Comments</b>
-        {{comments}}
+        {{this.comments}}
       </p>
       <p class='info-item'>
         <b>Downloads</b>
-        {{downloads}}
+        {{this.downloads}}
       </p>
     </div>
   </div>
