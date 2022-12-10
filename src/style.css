@@ -66,3 +66,35 @@ img {
   background-color: rgb(105, 210, 30);
   color: white;
 }
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.photo-card {
+  outline: 1px solid grey;
+}
+
+.owerlay {
+  max-width: 250px;
+  height: 150px;
+}
+
+.info {
+  padding: 10px;
+}
+
+.gallery-img {
+  object-fit: cover;
+  height: 100%;
+  transition: transform 0.3s;
+}
+
+.gallery-img:hover,
+.gallery-img:focus {
+  transform: scale(1.03);
+}

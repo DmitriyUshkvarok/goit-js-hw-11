@@ -9,17 +9,76 @@ const refs = {
   searchForm: document.querySelector('.search-form'),
   btnSubmit: document.querySelector('.search-button'),
   gallery: document.querySelector('.gallery'),
+  loadMoreBtn: document.querySelector('.load-more'),
 };
 
-refs.btnSubmit.addEventListener('submit', onSearchSubmit);
+refs.searchForm.addEventListener('submit', onSearchSubmit);
 
 function onSearchSubmit(e) {
   e.preventDefault();
-  const inputSearch = e.currentTarget.srcElement.searchQuery.value;
-  console.dir(inputSearch);
-  fetchContent(inputSearch).then(img => {
-    if (!inputSearch) {
-      Notify.info('Too many matches found. Please enter a more specific name.');
-    }
-  });
+  const inputSearch = e.currentTarget.elements.searchQuery.value;
+  page = 1;
+  if (!inputSearch) {
+    Notify.info(
+      'Sorry, there are no images matching your search query. Please try again.'
+    );
+    return;
+  }
+  fetchContent(inputSearch).then(showGallery).catch(onError);
 }
+
+function showGallery(dataOwner) {
+  refs.gallery.innerHTML = galleryRender(dataOwner.hits);
+  // refs.gallery.innerHTML = dataOwner.hits
+  //   .map(
+  //     ({
+  //       webformatURL,
+  //       largeImageURL,
+  //       tags,
+  //       likes,
+  //       views,
+  //       comments,
+  //       downloads,
+  //     }) => {
+  //       return `<div class="photo-card">
+  //         <div class="owerlay">
+  //       <a data-fancybox='gallery' href="${largeImageURL}"><img class="gallery-img" width=250 height="100" src="${webformatURL}" alt="${tags}" loading="lazy" /></a>
+  //   </div>
+  //   <div class="info">
+  //     <p class="info-item">
+  //       <b>Likes ${likes}</b>
+  //     </p>
+  //     <p class="info-item">
+  //       <b>Views ${views}</b>
+  //     </p>
+  //     <p class="info-item">
+  //       <b>Comments ${comments}</b>
+  //     </p>
+  //     <p class="info-item">
+  //       <b>Downloads ${downloads}</b>
+  //     </p>
+  //   </div>
+  // </div>`;
+  //     }
+  //   )
+  //   .join('');
+}
+
+function onError(error) {
+  Notify.failure('Oops, there is no country with that name');
+  return;
+}
+
+refs.loadMoreBtn.addEventListener('click', onLoadFunction);
+function onLoadFunction() {}
+
+Fancybox.bind('[data-fancybox="gallery"]', {
+  Thumbs: true,
+  Toolbar: true,
+
+  Image: {
+    zoom: false,
+    click: true,
+    wheel: 'slide',
+  },
+});
