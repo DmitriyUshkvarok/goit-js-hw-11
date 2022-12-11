@@ -3,9 +3,9 @@
     <div class='owerlay'>
       <a data-fancybox='gallery' href='{{this.largeImageURL}}'>
         <img
-          class='gallery-img'
-          src='{{this.webformatURL}}'
-          alt='{{this.tags}}'
+          class='gallery-img lazyload'
+          data-src='{{this.webformatURL}}'
+          data-caption='{{this.tags}}'
           loading='lazy'
           width='250'
         />
