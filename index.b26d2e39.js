@@ -1,0 +1,2 @@
+!function(){var e=document.querySelector(".btn-scroll");window.addEventListener("scroll",(function(n){window.pageYOffset>200?e.classList.add("shown"):e.classList.remove("shown")})),e.addEventListener("click",(function(){window.scrollTo(0,0)}));var n=document.querySelector(".js-theme");n.addEventListener("click",(function(e){e.preventDefault(),document.body.classList.toggle("shown"),console.log(n)}))}();
+//# sourceMappingURL=index.b26d2e39.js.map
