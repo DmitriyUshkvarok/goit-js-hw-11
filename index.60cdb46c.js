@@ -1,2 +1,0 @@
-let e=document.querySelector(".btn-scroll");window.addEventListener("scroll",(function(n){window.pageYOffset>200?e.classList.add("shown"):e.classList.remove("shown")})),e.addEventListener("click",(function(){window.scrollTo(0,0)}));const n=document.querySelector(".js-theme");n.addEventListener("click",(function(e){e.preventDefault(),document.body.classList.toggle("shown"),console.log(n)}));
-//# sourceMappingURL=index.60cdb46c.js.map
