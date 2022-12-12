@@ -24,16 +24,13 @@ function onSearchSubmit(e) {
   e.preventDefault();
   onResetSearch();
   const inputSearch = e.currentTarget.elements.searchQuery.value;
-
   page = 1;
   if (!inputSearch) {
-    Notify.info(
+    refs.loadMoreBtn.classList.remove('is-hidden');
+    return Notify.info(
       'Sorry, there are no images matching your search query. Please try again.'
     );
-    refs.loadMoreBtn.classList.remove('is-hidden');
-    return;
   }
-
   fetchContent(inputSearch, page).then(showGallery).catch(onError);
 }
 
@@ -43,16 +40,30 @@ function showGallery(dataOwner) {
   refs.gallery.insertAdjacentHTML('beforeend', markup);
   refs.loadMoreBtn.classList.add('is-hidden');
   refs.gallery.classList.add('show');
-  if (dataOwner) {
-    Notify.success(`Hooray! We found ${dataOwner.hits.length} images.`);
-    return;
+
+  if (dataOwner.totalHits < 40) {
+    refs.loadMoreBtn.classList.remove('is-hidden');
+  }
+
+  if (dataOwner.totalHits > 0) {
+    return Notify.success(`Hooray! We found ${dataOwner.totalHits} images.`);
+  }
+
+  if (dataOwner.totalHits === 0) {
+    refs.gallery.classList.remove('show');
+    refs.loadMoreBtn.classList.remove('is-hidden');
+    return Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again.'
+    );
   }
 }
 
 // function error
 function onError(error) {
   refs.loadMoreBtn.classList.remove('is-hidden');
-  Notify.failure("We're sorry, but you've reached the end of search results.");
+  return Notify.failure(
+    "We're sorry, but you've reached the end of search results."
+  );
   return;
 }
 
