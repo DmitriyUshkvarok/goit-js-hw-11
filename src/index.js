@@ -21,6 +21,7 @@ refs.loadMoreBtn.addEventListener('click', onLoadFunction);
 
 // function submit form
 function onSearchSubmit(e) {
+  refs.loadMoreBtn.classList.remove('is-hidden');
   e.preventDefault();
   onResetSearch();
   const inputSearch = e.currentTarget.elements.searchQuery.value;
@@ -31,8 +32,7 @@ function onSearchSubmit(e) {
       'Sorry, there are no images matching your search query. Please try again.'
     );
   }
-
-  response = fetchContent(inputSearch, page).then(showGallery).catch(onError);
+  fetchContent(inputSearch, page).then(showGallery).catch(onError);
 }
 
 // function show img content
