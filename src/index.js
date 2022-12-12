@@ -81,6 +81,17 @@ function onLoadFunction() {
   fetchContent(inputSearch, page).then(showGallery).catch(onError);
 }
 
+// deleted text on push btn backspace
+window.addEventListener('keydown', onBackspaceDeleted);
+
+function onBackspaceDeleted(e) {
+  if (e.code === 'Backspace') {
+    refs.searchForm.elements.searchQuery.value = '';
+    // window.removeEventListener('keydown', onBackspaceDeleted);
+  }
+  console.dir(e);
+}
+
 // fancybox  plugin
 Fancybox.bind('[data-fancybox="gallery"]', {
   Thumbs: true,
