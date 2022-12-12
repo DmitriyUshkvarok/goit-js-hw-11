@@ -31,22 +31,24 @@ function onSearchSubmit(e) {
       'Sorry, there are no images matching your search query. Please try again.'
     );
   }
-  fetchContent(inputSearch, page).then(showGallery).catch(onError);
+
+  response = fetchContent(inputSearch, page).then(showGallery).catch(onError);
 }
 
 // function show img content
 function showGallery(dataOwner) {
   const markup = galleryRender(dataOwner);
   refs.gallery.insertAdjacentHTML('beforeend', markup);
+  scrollSmooth();
   refs.loadMoreBtn.classList.add('is-hidden');
   refs.gallery.classList.add('show');
 
-  if (dataOwner.totalHits < 40) {
-    refs.loadMoreBtn.classList.remove('is-hidden');
+  if (page === 1) {
+    Notify.success(`Hooray! We found ${dataOwner.totalHits} images.`);
   }
 
-  if (dataOwner.totalHits > 0) {
-    return Notify.success(`Hooray! We found ${dataOwner.totalHits} images.`);
+  if (dataOwner.totalHits < 40) {
+    refs.loadMoreBtn.classList.remove('is-hidden');
   }
 
   if (dataOwner.totalHits === 0) {
@@ -78,18 +80,31 @@ function onResetSearch(page) {
 function onLoadFunction() {
   const inputSearch = refs.searchForm.elements.searchQuery.value;
   page += 1;
+
   fetchContent(inputSearch, page).then(showGallery).catch(onError);
 }
 
-// deleted text on push btn backspace
+// delete text in search array when btn is click backspace
 window.addEventListener('keydown', onBackspaceDeleted);
 
 function onBackspaceDeleted(e) {
   if (e.code === 'Backspace') {
     refs.searchForm.elements.searchQuery.value = '';
-    // window.removeEventListener('keydown', onBackspaceDeleted);
   }
   console.dir(e);
+}
+
+// smooth scroll
+
+function scrollSmooth() {
+  const { height: cardHeight } = document
+    .querySelector('.gallery')
+    .firstElementChild.getBoundingClientRect();
+
+  window.scrollBy({
+    top: cardHeight * 4,
+    behavior: 'smooth',
+  });
 }
 
 // fancybox  plugin

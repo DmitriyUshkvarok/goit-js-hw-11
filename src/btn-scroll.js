@@ -1,3 +1,4 @@
+// btn scroll
 let buttonUp = document.querySelector('.btn-scroll');
 
 window.addEventListener('scroll', onScrolFunction);
@@ -14,14 +15,4 @@ buttonUp.addEventListener('click', onScrollUp);
 
 function onScrollUp() {
   window.scrollTo(0, 0);
-}
-
-const theme = document.querySelector('.js-theme');
-
-theme.addEventListener('click', onWhiteTheme);
-
-function onWhiteTheme(e) {
-  e.preventDefault();
-  document.body.classList.toggle('shown');
-  console.log(theme);
 }

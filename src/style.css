@@ -212,8 +212,8 @@ body.shown .load-more:focus {
 }
 
 body.shown .gallery {
-  box-shadow: 0 0 5px 5px rgba(242, 10, 10, 0.7),
-    inset 0 0 10px 5px rgba(242, 10, 10, 0.7);
+  box-shadow: 0 0 10px 10px rgba(242, 10, 10, 0.7),
+    inset 0 0 30px 10px rgba(242, 10, 10, 0.7);
 }
 
 .gallery.show {
