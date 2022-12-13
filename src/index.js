@@ -40,7 +40,7 @@ function onSearchSubmit(e) {
 
 // function show img content
 function showGallery(dataOwner) {
-  onPageSelect();
+  onPageSelect(amountContent);
   const markup = galleryRender(dataOwner);
   refs.gallery.insertAdjacentHTML('beforeend', markup);
   scrollSmooth();
