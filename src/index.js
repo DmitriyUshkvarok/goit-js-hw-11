@@ -14,6 +14,7 @@ const refs = {
   loadMoreBtn: document.querySelector('.load-more'),
 };
 let page = '';
+let amountContent = '';
 
 // events
 refs.searchForm.addEventListener('submit', onSearchSubmit);
@@ -32,11 +33,14 @@ function onSearchSubmit(e) {
       'Sorry, there are no images matching your search query. Please try again.'
     );
   }
-  fetchContent(inputSearch, page).then(showGallery).catch(onError);
+  fetchContent(inputSearch, page, amountContent)
+    .then(showGallery)
+    .catch(onError);
 }
 
 // function show img content
 function showGallery(dataOwner) {
+  onPageSelect();
   const markup = galleryRender(dataOwner);
   refs.gallery.insertAdjacentHTML('beforeend', markup);
   scrollSmooth();
@@ -66,7 +70,6 @@ function onError(error) {
   return Notify.failure(
     "We're sorry, but you've reached the end of search results."
   );
-  return;
 }
 
 // function reset gallery
@@ -81,7 +84,9 @@ function onLoadFunction() {
   const inputSearch = refs.searchForm.elements.searchQuery.value;
   page += 1;
 
-  fetchContent(inputSearch, page).then(showGallery).catch(onError);
+  fetchContent(inputSearch, page, amountContent)
+    .then(showGallery)
+    .catch(onError);
 }
 
 // delete text in search array when btn is click backspace
@@ -91,7 +96,6 @@ function onBackspaceDeleted(e) {
   if (e.code === 'Backspace') {
     refs.searchForm.elements.searchQuery.value = '';
   }
-  console.dir(e);
 }
 
 // smooth scroll
@@ -105,6 +109,17 @@ function scrollSmooth() {
     top: cardHeight * 4,
     behavior: 'smooth',
   });
+}
+
+// select function
+const selectPage = document.querySelector('.page-pare');
+
+selectPage.addEventListener('change', onPageSelect);
+
+function onPageSelect(e) {
+  selectPage.value = this.value;
+  amountContent = selectPage.value;
+  console.dir(amountContent);
 }
 
 // fancybox  plugin

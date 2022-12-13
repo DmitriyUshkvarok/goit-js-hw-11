@@ -55,11 +55,9 @@ img {
   background-color: #0b0c0c;
   background-image: url('./images/bg-promo.png');
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 15px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 20px;
 }
 
 body.shown .search-form {
@@ -72,15 +70,12 @@ body.shown .search-form {
   border: none;
   background-color: transparent;
   background-image: url('./images/day-niight.png');
-  display: flex;
-  position: absolute;
-  top: 10px;
-  left: 3%;
   background-color: #c9a22d;
   border-radius: 50%;
   box-shadow: 0 0 10px 10px rgba(201, 162, 45, 0.7),
     inset 0 0 30px 10px rgba(201, 162, 45, 0.7);
   transition: all 300ms;
+  cursor: pointer;
 }
 
 body.shown .js-theme {
@@ -149,6 +144,7 @@ body.shown .search-input:focus {
   box-shadow: 0 0 10px 10px rgba(201, 162, 45, 0.7),
     inset 0 0 30px 10px rgba(201, 162, 45, 0.7);
   transition: all 0.3s;
+  cursor: pointer;
 }
 
 body.shown .search-button,
@@ -156,6 +152,67 @@ body.shown .load-more {
   text-shadow: 0 0 10px rgb(241, 11, 11);
   box-shadow: 0 0 10px 10px rgba(242, 10, 10, 0.7);
   color: rgba(12, 1, 1, 0.755);
+}
+
+.form-group:last-of-type {
+  margin-right: 30px;
+}
+
+.page-pare {
+  width: 90px;
+  height: 50px;
+  border-radius: 20px;
+  border: none;
+  appearance: none;
+  box-shadow: 0 0 10px 10px rgba(201, 162, 45, 0.7),
+    inset 0 0 30px 10px rgba(201, 162, 45, 0.7);
+  background-color: transparent;
+  color: gray;
+  text-shadow: 1px 1px 1px rgb(247, 242, 242);
+  font-size: 20px;
+  outline: none;
+  text-align: center;
+  font-weight: bold;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.page-pare:hover,
+.page-pare:focus {
+  box-shadow: 0 0 10px 10px rgba(6, 230, 246, 0.7),
+    inset 0 0 30px 10px rgba(6, 230, 246, 0.7);
+}
+
+.text-quantity {
+  color: gray;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(6, 230, 246, 0.7);
+  margin-right: 20px;
+}
+
+body.shown .page-pare {
+  width: 90px;
+  height: 50px;
+  border-radius: 20px;
+  border: none;
+  appearance: none;
+  box-shadow: 0 0 10px 10px rgba(242, 10, 10, 0.7);
+  background-color: transparent;
+  color: gray;
+  text-shadow: 1px 1px 1px rgb(247, 242, 242);
+  font-size: 20px;
+  outline: none;
+  text-align: center;
+  font-weight: bold;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+body.shown .page-pare:hover,
+body.shown .page-pare:focus {
+  box-shadow: 0 0 10px 10px rgba(255, 255, 255, 0.994),
+    inset 0 0 20px 3px rgba(255, 255, 255, 0.994);
 }
 
 .load-more {
