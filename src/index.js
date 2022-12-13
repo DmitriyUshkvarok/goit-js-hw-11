@@ -36,12 +36,10 @@ function onSearchSubmit(e) {
   fetchContent(inputSearch, page, amountContent)
     .then(showGallery)
     .catch(onError);
-  onPageSelect(amountContent);
 }
 
 // function show img content
 function showGallery(dataOwner) {
-  onPageSelect(amountContent);
   const markup = galleryRender(dataOwner);
   refs.gallery.insertAdjacentHTML('beforeend', markup);
   scrollSmooth();
@@ -63,6 +61,7 @@ function showGallery(dataOwner) {
       'Sorry, there are no images matching your search query. Please try again.'
     );
   }
+  // onPageSelect(amountContent);
 }
 
 // function error
