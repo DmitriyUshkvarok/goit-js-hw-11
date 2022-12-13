@@ -15,12 +15,15 @@ const refs = {
 };
 let page = '';
 let amountContent = '';
+const selectPage = document.querySelector('.page-pare');
 
-// events
+// =========== events ============
 refs.searchForm.addEventListener('submit', onSearchSubmit);
 refs.loadMoreBtn.addEventListener('click', onLoadFunction);
+window.addEventListener('keydown', onBackspaceDeleted);
+selectPage.addEventListener('change', onPageSelect);
 
-// function submit form
+// ============ function submit form =============
 function onSearchSubmit(e) {
   refs.loadMoreBtn.classList.remove('is-hidden');
   e.preventDefault();
@@ -38,15 +41,17 @@ function onSearchSubmit(e) {
     .catch(onError);
 }
 
-// function show img content
+// =========== function show img content =============
 function showGallery(dataOwner) {
   const markup = galleryRender(dataOwner);
   refs.gallery.insertAdjacentHTML('beforeend', markup);
-  scrollSmooth();
   refs.loadMoreBtn.classList.add('is-hidden');
   refs.gallery.classList.add('show');
+  if (window.pageYOffset > 400) {
+    return scrollSmooth();
+  }
 
-  if (page === 1) {
+  if (page === 1 && dataOwner.totalHits > 1) {
     Notify.success(`Hooray! We found ${dataOwner.totalHits} images.`);
   }
 
@@ -61,10 +66,9 @@ function showGallery(dataOwner) {
       'Sorry, there are no images matching your search query. Please try again.'
     );
   }
-  // onPageSelect(amountContent);
 }
 
-// function error
+// ============= function error ===============
 function onError(error) {
   refs.loadMoreBtn.classList.remove('is-hidden');
   return Notify.failure(
@@ -72,33 +76,30 @@ function onError(error) {
   );
 }
 
-// function reset gallery
+// ========== function reset gallery ============
 function onResetSearch(page) {
   page = 1;
   refs.gallery.innerHTML = '';
   refs.gallery.classList.remove('show');
 }
 
-// function load img
+// ========== function load img ===========
 function onLoadFunction() {
   const inputSearch = refs.searchForm.elements.searchQuery.value;
   page += 1;
-
   fetchContent(inputSearch, page, amountContent)
     .then(showGallery)
     .catch(onError);
 }
 
-// delete text in search array when btn is click backspace
-window.addEventListener('keydown', onBackspaceDeleted);
-
+// ========== delete text in search array when btn is click backspace ========
 function onBackspaceDeleted(e) {
   if (e.code === 'Backspace') {
     refs.searchForm.elements.searchQuery.value = '';
   }
 }
 
-// smooth scroll
+// ========== smooth scroll ==========
 
 function scrollSmooth() {
   const { height: cardHeight } = document
@@ -111,18 +112,30 @@ function scrollSmooth() {
   });
 }
 
-// select function
-const selectPage = document.querySelector('.page-pare');
+//========== select function ==========
+const STORAGE_KEY = 'feedback-form-state';
+let formData = {};
 
-selectPage.addEventListener('change', onPageSelect);
-
-function onPageSelect() {
+function onPageSelect(e) {
   selectPage.value = this.value;
   amountContent = selectPage.value;
-  console.dir(amountContent);
+  formData[e.target.name] = e.target.value;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 }
 
-// fancybox  plugin
+function onDataLocalStorage() {
+  let data = localStorage.getItem(STORAGE_KEY);
+  if (data) {
+    data = JSON.parse(data);
+    Object.entries(data).forEach(([name, value]) => {
+      formData[name] = value;
+      selectPage.value = value;
+    });
+  }
+}
+onDataLocalStorage();
+
+//========= fancybox  plugin ==========
 Fancybox.bind('[data-fancybox="gallery"]', {
   Thumbs: true,
   Toolbar: true,

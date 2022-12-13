@@ -108,6 +108,7 @@ body.shown .js-theme:focus {
   box-shadow: 0 0 10px 10px rgba(201, 162, 45, 0.7),
     inset 0 0 30px 10px rgba(201, 162, 45, 0.7);
   transition: all 0.3s;
+  margin-right: 20px;
 }
 
 body.shown .search-input {
