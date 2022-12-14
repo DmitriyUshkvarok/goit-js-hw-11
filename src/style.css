@@ -46,6 +46,10 @@ img {
   z-index: 20;
 }
 
+.js-theme:active {
+  transform: scale(1.2);
+}
+
 .search-form {
   position: fixed;
   top: 0;
@@ -146,6 +150,11 @@ body.shown .search-input:focus {
     inset 0 0 30px 10px rgba(201, 162, 45, 0.7);
   transition: all 0.3s;
   cursor: pointer;
+}
+
+.search-button:active,
+.load-more:active {
+  transform: scale(1.2);
 }
 
 body.shown .search-button,
@@ -365,6 +374,10 @@ body.shown .info-item {
   box-shadow: 0 0 10px 10px rgba(6, 230, 246, 0.7),
     inset 0 0 30px 10px rgba(6, 230, 246, 0.7);
   transform: scale(1.1);
+}
+
+.btn-scroll:active {
+  transform: scale(1.2);
 }
 
 @media (max-width: 795px) {

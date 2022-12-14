@@ -16,7 +16,6 @@ const refs = {
 let page = '';
 let amountContent = '';
 const selectPage = document.querySelector('.page-pare');
-
 // =========== events ============
 refs.searchForm.addEventListener('submit', onSearchSubmit);
 refs.loadMoreBtn.addEventListener('click', onLoadFunction);
@@ -130,6 +129,7 @@ function onDataLocalStorage() {
     Object.entries(data).forEach(([name, value]) => {
       formData[name] = value;
       selectPage.value = value;
+      amountContent = selectPage.value;
     });
   }
 }
