@@ -14,6 +14,7 @@ body.shown {
   background-color: rgba(93, 93, 63, 0.207);
   background-image: url('./images/pattern.jpg');
   color: #0b0c0c;
+  background-attachment: fixed;
 }
 
 .container {
