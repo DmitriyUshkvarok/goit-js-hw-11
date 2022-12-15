@@ -12,6 +12,7 @@ btn.addEventListener('click', onClickTheme);
 
 function onClickTheme() {
   document.body.classList.toggle('shown');
+
   // Допустим, тема светлая
   let theme = 'light';
   // Если <body> содержит класс .dark-theme…
